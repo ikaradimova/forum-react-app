@@ -7,7 +7,6 @@ let questions = [];
 questions.push({index: 1, value: 'Do aliens really exist?'});
 questions.push({index: 2, value: '4 + 2 = ?'});
 
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +31,6 @@ class App extends Component {
 
 
     render() {
-        console.log(this.state.questions);
         return (
             <div id="main">
                 <AppHeader/>

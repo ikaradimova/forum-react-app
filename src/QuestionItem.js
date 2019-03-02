@@ -5,10 +5,12 @@ class QuestionItem extends Component {
         super(props);
         this.onClickClose = this.onClickClose.bind(this);
     }
+
     onClickClose() {
         let index = parseInt(this.props.index);
         this.props.removeQuestion(index);
     }
+
     render () {
         return(
             <li>
