@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class QuestionForm extends Component {
+class CommentForm extends Component {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
@@ -15,7 +15,8 @@ class QuestionForm extends Component {
         let newItemValue = this.refs.itemName.value;
 
         if(newItemValue) {
-            this.props.addQuestion({newItemValue});
+            this.props.addComment(this.props.questionIndex, {newItemValue});
+            // this.state.addQuestion({newItemValue});
             this.refs.form.reset();
         }
     }
@@ -23,9 +24,8 @@ class QuestionForm extends Component {
     handleKeyPress (event) {
         if(event.key === 'Enter'){
             let newItemValue = this.refs.itemName.value;
-
             if(newItemValue) {
-                this.props.addQuestion({newItemValue});
+                this.props.addComment(this.props.questionIndex, {newItemValue});
                 this.refs.form.reset();
             }
         }
@@ -37,16 +37,16 @@ class QuestionForm extends Component {
                 <input
                     type="text"
                     ref="itemName"
-                    placeholder="Ask a question..."
+                    placeholder="Add a comment..."
                 />
                 <button
                     type="submit"
                     onKeyPress={this.handleKeyPress}
-                >Ask
+                >Add
                 </button>
             </form>
         );
     }
 }
 
-export default QuestionForm;
+export default CommentForm;

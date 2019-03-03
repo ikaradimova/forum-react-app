@@ -4,9 +4,16 @@ import QuestionItem from './QuestionItem.js';
 class QuestionsList extends Component {
 
     render () {
-        let items = this.props.items.map((item, index) => {
+        let items = this.props.questions.map((item, index) => {
             return (
-                <QuestionItem key={index} item={item} index={index} removeQuestion={this.props.removeQuestion} />
+                <QuestionItem
+                    key={index}
+                    question={item}
+                    index={index}
+                    removeQuestion={this.props.removeQuestion}
+                    removeComment={this.props.removeComment}
+                    addComment={this.props.addComment}
+                />
             );
         });
         return (

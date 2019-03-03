@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import CommentForm from "./CommentForm";
+import CommentsList from "./CommentsList";
 
 class QuestionItem extends Component {
     constructor(props) {
@@ -15,8 +17,18 @@ class QuestionItem extends Component {
         return(
             <li>
                 <div>
-                    {this.props.item.value}
+                    {this.props.question.value}
                     <button type="button" onClick={this.onClickClose}>&times;</button>
+                    <CommentForm
+                        addComment={this.props.addComment}
+                        questionIndex={this.props.question.index}
+                    />
+                    <CommentsList
+                        comments={this.props.question.comments}
+                        questionIndex={this.props.question.index}
+                        removeQuestion={this.removeQuestion}
+                        removeComment={this.props.removeComment}
+                    />
                 </div>
             </li>
         );
