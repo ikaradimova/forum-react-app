@@ -1,92 +1,69 @@
-import React, {Component} from 'react';
-import QuestionForm from './QuestionForm.js';
-import AppHeader from "./AppHeader";
-import QuestionsList from "./QuestionsList";
-
-let questions = [];
-// questions.push({
-//     index: 1,
-//     value: 'Do aliens really exist?',
-//     comments: [
-//         {
-//             index: 1,
-//             value: 'Yes'
-//         },
-//         {
-//             index: 2,
-//             value: 'No'
-//         }
-//     ]
-// });
-// questions.push({
-//     index: 2,
-//     value: '4 + 2 = ?',
-//     comments: [
-//         {
-//             index: 1,
-//             value: 6
-//         }
-//     ]
-// });
+import React, { Component } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import Forum from "./forum";
+import Login from "./Login";
+import Register from "./Register";
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.addQuestion = this.addQuestion.bind(this);
-        this.removeQuestion = this.removeQuestion.bind(this);
-        this.addComment = this.addComment.bind(this);
-        this.removeComment = this.removeComment.bind(this);
-        this.state = {questions: questions};
-    }
-
-    addQuestion(question) {
-        questions.unshift({
-            index: questions.length + 1,
-            value: question.newItemValue,
-            comments: []
-        });
-        console.log(questions);
-        this.setState({questions: questions});
-    }
-
-    removeQuestion(questionIndex) {
-        questions.splice(questionIndex, 1);
-        this.setState({questions: questions});
-    }
-
-    addComment(questionIndex, comment) {
-        let question = this.state.questions[questions.length - questionIndex];
-        let comments = question.comments;
-        comments.unshift({
-            index: comments.length + 1,
-            value: comment.newItemValue,
-        });
-        question.comments = comments;
-        this.setState({questions: questions});
-    }
-
-    removeComment(questionIndex, commentIndex) {
-        let question = this.state.questions[questions.length - questionIndex];
-        let comments = question.comments;
-        comments.splice(commentIndex, 1);
-        questions.splice(questions.length - questionIndex, 1, question);
-        this.setState({questions: questions});
-    }
-
-    render() {
-        return (
-            <div id="main">
-                <AppHeader/>
-                <QuestionForm addQuestion={this.addQuestion}/>
-                <QuestionsList
-                    questions={this.state.questions}
-                    removeQuestion={this.removeQuestion}
-                    removeComment={this.removeComment}
-                    addComment={this.addComment}
-                />
-            </div>
-        );
-    }
+  //hardcoded data
+  state = {
+    users: [
+      { username: "admin", password: "password", role: "admin" },
+      {
+        username: "testUser",
+        password: "password",
+        role: "regular"
+      }
+    ],
+    questions: [
+      {
+        index: 1,
+        value: "Can my dog eat ice-cream?",
+        comments: [
+          { value: "No way, man! It can kill it!" },
+          { value: "Try and let me know :D" }
+        ]
+      }
+    ]
+  };
+  render() {
+    let styleBrowserComponent = {
+      width: "70%",
+      margin: "auto"
+    };
+    return (
+      <BrowserRouter>
+        <div style={styleBrowserComponent}>
+          <Route
+            exact
+            path="/"
+            render={routeProps => (
+              <Forum {...routeProps} questionsList={this.state.questions} />
+            )}
+          />
+          <Route
+            exact
+            path="/login"
+            render={routeProps => (
+              <Login
+                {...routeProps}
+                usersList={this.state.users}
+                questionsList={this.state.questions}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/forum"
+            render={routeProps => (
+              <Forum {...routeProps} loggedUser={this.state.loggedUser} />
+            )}
+          />
+          <Route exact path="/register" component={Register} />
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
