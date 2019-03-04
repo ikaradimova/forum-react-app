@@ -3,6 +3,8 @@ import QuestionForm from "./QuestionForm.js";
 import AppHeader from "./AppHeader";
 import QuestionsList from "./QuestionsList";
 import { Redirect } from "react-router-dom";
+import SearchForm from "./SearchForm";
+import SearchList from "./SearchList";
 
 let questions = [];
 let loggedUser = {};
@@ -47,6 +49,7 @@ class Forum extends Component {
     this.removeQuestion = this.removeQuestion.bind(this);
     this.addComment = this.addComment.bind(this);
     this.removeComment = this.removeComment.bind(this);
+    this.search = this.search.bind(this);
     this.checkIfThereAreRightsForOperation = this.checkIfThereAreRightsForOperation.bind(
       this
     );
@@ -56,7 +59,12 @@ class Forum extends Component {
     questions = this.props.location.state
       ? [...this.props.location.state.questionsList]
       : this.props.questionsList;
-    this.state = { questions: questions, redirectToLogin: false };
+    this.state = {
+      questions: questions,
+      redirectToLogin: false,
+      filteredQuestions: [],
+      show: true
+    };
   }
 
   checkIfThereAreRightsForOperation(operation, questionCommentObject) {
@@ -131,6 +139,26 @@ class Forum extends Component {
     this.setState({ questions: questions });
   }
 
+  search(event) {
+    console.log(event.target.value);
+    if (event.target.value !== "") {
+      let updatedQuestions = this.state.questions;
+      updatedQuestions = updatedQuestions.filter(function(question) {
+        return (
+          question.value
+            .toLowerCase()
+            .search(event.target.value.toLowerCase()) !== -1
+        );
+      });
+      console.log(updatedQuestions);
+      this.setState({ show: false });
+      this.setState({ filteredQuestions: updatedQuestions });
+    } else {
+      this.setState({ show: true });
+      this.setState({ filteredQuestions: [] });
+    }
+  }
+
   renderRedirectLogin() {
     if (this.state.redirectToLogin === true) {
       return <Redirect to="/login" />;
@@ -142,13 +170,22 @@ class Forum extends Component {
             addQuestion={this.addQuestion}
             style={styles.questionFormStyle.inputStyle}
           />
-          <QuestionsList
-            questions={this.state.questions}
-            removeQuestion={this.removeQuestion}
-            removeComment={this.removeComment}
-            addComment={this.addComment}
-            style={styles.questionItemStyle}
-          />
+          <SearchForm search={this.search.bind(this)} />
+          {this.state.filteredQuestions.length > 0 ? (
+            <SearchList
+              style={styles.questionItemStyle}
+              filteredQuestions={this.state.filteredQuestions}
+            />
+          ) : this.state.show ? (
+            <QuestionsList
+              questions={this.state.questions}
+              removeQuestion={this.removeQuestion}
+              removeComment={this.removeComment}
+              addComment={this.addComment}
+              search={this.search}
+              style={styles.questionItemStyle}
+            />
+          ) : null}
         </div>
       );
     }

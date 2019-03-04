@@ -7,9 +7,8 @@ class CommentForm extends Component {
   }
 
   componentDidMount() {
-    this.refs.itemName.focus();
+    // this.refs.itemName.focus();
   }
-
   onSubmit(event) {
     event.preventDefault();
     let newItemValue = this.refs.itemName.value;
@@ -30,7 +29,6 @@ class CommentForm extends Component {
       }
     }
   }
-
   render() {
     return (
       <form ref="form" onSubmit={this.onSubmit}>

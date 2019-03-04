@@ -15,7 +15,7 @@ class QuestionItem extends Component {
 
   render() {
     return (
-      <li style={this.props.style.self}>
+      <li /*style={this.props.style.self}*/>
         <div>
           <div style={this.props.style.headerWrapperStyle}>
             <h5 style={this.props.style.headerStyle}>
