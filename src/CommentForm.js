@@ -7,7 +7,7 @@ class CommentForm extends Component {
     }
 
     componentDidMount() {
-        this.refs.itemName.focus();
+        // this.refs.itemName.focus();
     }
 
     onSubmit(event) {
@@ -35,6 +35,8 @@ class CommentForm extends Component {
         return (
             <form ref="form" onSubmit={this.onSubmit}>
                 <input
+                    className="comment-input"
+                    autoFocus={false}
                     type="text"
                     ref="itemName"
                     placeholder="Add a comment..."

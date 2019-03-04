@@ -9,7 +9,6 @@ class Search extends Component {
         return (
             <form ref="form">
                 <input
-                    autoFocus={true}
                     type="text"
                     ref="search"
                     onChange={this.props.search}
