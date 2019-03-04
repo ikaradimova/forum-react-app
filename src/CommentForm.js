@@ -33,7 +33,7 @@ class CommentForm extends Component {
     return (
       <form ref="form" onSubmit={this.onSubmit}>
         <input
-          style={this.props.style}
+          style={this.props.style.commentFormInputStyle}
           type="text"
           ref="itemName"
           placeholder="Add a comment..."
@@ -42,6 +42,7 @@ class CommentForm extends Component {
           type="submit"
           className="btn btn-info btn-sm"
           onKeyPress={this.handleKeyPress}
+          style={this.props.style.commentFormAddButtonStyle}
         >
           Add
         </button>

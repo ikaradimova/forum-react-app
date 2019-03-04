@@ -17,29 +17,31 @@ class QuestionItem extends Component {
     return (
       <li /*style={this.props.style.self}*/>
         <div>
-          <div style={this.props.style.headerWrapperStyle}>
+          <div style={this.props.style.questionItemStyle.headerWrapperStyle}>
             <h5 style={this.props.style.headerStyle}>
               {this.props.question.value}
             </h5>
             <button
               type="button"
-              className="btn btn-info btn-sm"
-              style={this.props.style.headerButtonStyle}
+              className="btn btn-danger btn-sm"
+              style={this.props.style.questionItemStyle.headerButtonStyle}
               onClick={this.onClickClose}
             >
               &times;
             </button>
           </div>
-          <CommentForm
-            style={this.props.style.commentFormInputStyle}
-            addComment={this.props.addComment}
-            questionIndex={this.props.question.index}
-          />
+
           <CommentsList
             comments={this.props.question.comments}
             questionIndex={this.props.question.index}
             removeQuestion={this.removeQuestion}
             removeComment={this.props.removeComment}
+            style={this.props.style}
+          />
+          <CommentForm
+            style={this.props.style.commentFormStyle}
+            addComment={this.props.addComment}
+            questionIndex={this.props.question.index}
           />
         </div>
       </li>

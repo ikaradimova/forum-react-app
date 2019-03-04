@@ -33,21 +33,24 @@ class QuestionForm extends Component {
 
   render() {
     return (
-      <form ref="form" onSubmit={this.onSubmit}>
-        <input
-          style={this.props.style}
-          type="text"
-          ref="itemName"
-          placeholder="Ask a question..."
-        />
-        <button
-          type="submit"
-          className="btn btn-info btn-sm"
-          onKeyPress={this.handleKeyPress}
-        >
-          Ask
-        </button>
-      </form>
+      <div style={this.props.style}>
+        <form ref="form" onSubmit={this.onSubmit}>
+          <input
+            style={this.props.style.inputStyle}
+            type="text"
+            ref="itemName"
+            placeholder="Ask a question..."
+          />
+          <button
+            type="submit"
+            className="btn btn-info btn-sm"
+            onKeyPress={this.handleKeyPress}
+            style={this.props.style.addQuestionBtnStyle}
+          >
+            Ask
+          </button>
+        </form>
+      </div>
     );
   }
 }

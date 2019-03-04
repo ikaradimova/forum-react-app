@@ -11,13 +11,19 @@ let loggedUser = {};
 
 let styles = {
   wrapperStyle: {
-    backgroundColor: "lightblue",
-    padding: "10px"
+    padding: "10px",
+    border: "1px solid rgb(23, 162, 184)"
   },
   questionFormStyle: {
+    width: "70%",
+    display: "inline-block",
+    marginLeft: "40px",
     inputStyle: {
-      width: "60%",
+      width: "90%",
       marginBottom: "20px"
+    },
+    addQuestionBtnStyle: {
+      marginTop: "-3px"
     }
   },
   questionItemStyle: {
@@ -26,18 +32,48 @@ let styles = {
     },
     headerWrapperStyle: {
       backgroundColor: "lightgrey",
-      width: "60%",
+      width: "93%",
       padding: "5px",
-      marginBottom: "10px"
+      paddingTop: "10px",
+      marginBottom: "10px",
+      marginTop: "20px",
+      minHeight: "50px"
     },
     headerButtonStyle: {
-      float: "right"
+      float: "right",
+      marginTop: "-33px"
     },
     headerStyle: {
       display: "inline-block"
-    },
+    }
+  },
+  searchFormStyle: {
+    width: "20%",
+    display: "inline-block"
+  },
+  commentFormStyle: {
     commentFormInputStyle: {
-      width: "55%"
+      width: "66%",
+      marginTop: "20px"
+    },
+    commentFormAddButtonStyle: {
+      marginTop: "-3px"
+    }
+  },
+  ulStyle: {
+    listStyleType: "none"
+  },
+  appHeaderStyle: {
+    wrapper: {
+      textAlign: "center",
+      marginBottom: "20px"
+    },
+    header: {
+      display: "inline-block"
+    },
+    imageChat: {
+      width: "8%",
+      marginLeft: "15px"
     }
   }
 };
@@ -165,15 +201,18 @@ class Forum extends Component {
     } else {
       return (
         <div style={styles.wrapperStyle}>
-          <AppHeader />
+          <AppHeader style={styles.appHeaderStyle} />
           <QuestionForm
             addQuestion={this.addQuestion}
-            style={styles.questionFormStyle.inputStyle}
+            style={styles.questionFormStyle}
           />
-          <SearchForm search={this.search.bind(this)} />
+          <SearchForm
+            style={styles.searchFormStyle}
+            search={this.search.bind(this)}
+          />
           {this.state.filteredQuestions.length > 0 ? (
             <SearchList
-              style={styles.questionItemStyle}
+              style={styles}
               filteredQuestions={this.state.filteredQuestions}
             />
           ) : this.state.show ? (
@@ -183,7 +222,7 @@ class Forum extends Component {
               removeComment={this.removeComment}
               addComment={this.addComment}
               search={this.search}
-              style={styles.questionItemStyle}
+              style={styles}
             />
           ) : null}
         </div>

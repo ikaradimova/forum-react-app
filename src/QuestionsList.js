@@ -16,7 +16,7 @@ class QuestionsList extends Component {
         />
       );
     });
-    return <ul> {items} </ul>;
+    return <ul style={this.props.style.ulStyle}> {items} </ul>;
   }
 }
 

@@ -18,7 +18,7 @@ class SearchList extends Component {
           );
         }
       );
-      return <ul> {filteredQuestions} </ul>;
+      return <ul style={this.props.style.ulStyle}> {filteredQuestions} </ul>;
     } else {
       return null;
     }
